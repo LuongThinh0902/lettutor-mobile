@@ -82,13 +82,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   avt:{
-    // resizeMode: 'center',
-    // height: 100,
-    width: 400,
-    height: 400,
+    width: 350,
+    height: 350,
     marginVertical: 50,
-    // //height: 500,
-    // alignItems: 'center',
   },
   heading: {
     fontSize: 30,
@@ -101,6 +97,7 @@ const styles = StyleSheet.create({
     // alignSelf: 'center',
     width: '100%',
     marginBottom: 15,
+    fontSize: 20,
   },
   labelInput:{
     alignSelf: 'flex-start',
@@ -147,11 +144,8 @@ const styles = StyleSheet.create({
   // },
   icon: {
     width: 30,
-    // borderWidth: 2,
-    // borderColor:'#0077FF',
     marginHorizontal: 10,
     resizeMode: 'contain',
-    borderRadius: 50,
     marginBottom: 30,
   }
 });

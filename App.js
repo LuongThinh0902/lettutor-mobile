@@ -6,14 +6,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './login1.js';
 import Header from './header';
+import HeaderLogged from './headerLogged';
+import TeacherList from './teacherList';
+import DetailTutor from './detailTutor.js';
 
 export default function App() {
   return (
-    <ScrollView style={styles.container}>
-      <Header headerText={''}/>
-      <Login/>
-      <StatusBar style="auto" />
-    </ScrollView>
+    <View style={styles.container}>
+      {/* <Header headerText={''}/> */}
+      <HeaderLogged/>
+      <ScrollView>
+        <TeacherList/>
+        {/* <Login/> */}
+        {/* <DetailTutor/> */}
+        <StatusBar style="auto" />
+      </ScrollView>
+    </View>
   );
 }
 
