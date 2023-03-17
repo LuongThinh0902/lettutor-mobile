@@ -264,10 +264,28 @@ const TeacherList = () => {
                 <View style={styles.topTutorInfoBox}></View>
                 <Text style={styles.tutorName}>{index.name}</Text>
                 <Text>{index.nationality}</Text>
-                <View>{printStar(index.liked)}</View>
+                {/* <View>{printStar(index.liked)}</View> */}
+                <View style={styles.keyCourseBox}>
+                  {index.skill.map((i) => (
+                    <Text style={styles.keywordCourseTutor}>{i}</Text>
+                  ))}
+                </View>
+                <Text>{index.description}</Text>
+                <View style={styles.book}>
+                  <Text>Book</Text>
+                </View>
               </View>
             </View>
           ))}
+          <View style={styles.pageBox}>
+            <View style={styles.page}></View>
+            <Text style={styles.page}>1</Text>
+            <Text style={styles.page}>2</Text>
+            <Text style={styles.page}>3</Text>
+            <Text style={styles.page}>4</Text>
+            <Text style={styles.page}>5</Text>
+            <View style={styles.page}></View>
+          </View>
         </View>
       </View>
     </View>
@@ -362,6 +380,24 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
   },
+  keywordCourseTutor: {
+    backgroundColor: "lightblue",
+    borderRadius: 25,
+    padding: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
+    color: "blue",
+  },
+  book: {
+    alignSelf: "flex-end",
+    borderWidth: 1,
+    borderColor: "#0077FF",
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    position: "absolute",
+    bottom: 0,
+  },
   resetFilters: {
     borderColor: "#0077FF",
     borderWidth: 1,
@@ -392,9 +428,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 500,
     marginTop: 20,
+    justifyContent: "center",
   },
   tutorInfoBox: {
     marginHorizontal: 15,
+    height: 450,
   },
   topTutorInfoBox: {
     height: 100,
@@ -415,14 +453,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: "100%",
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  continue: {
-    marginVertical: 30,
-  },
   boxIcon: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -436,6 +466,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     resizeMode: "contain",
     marginBottom: 30,
+  },
+  pageBox: {
+    // position: "absolute",
+    // bottom: 0,
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    marginTop: 50,
+    justifyContent: 'space-between',
+    height: 30,
+    width: 270,
+  },
+  page: {
+    // alignSelf: 'center',
+    // justifyContent: 'center',
+    // padding: 10,
+    borderWidth: 1,
+    width: 30,
   },
 });
 
