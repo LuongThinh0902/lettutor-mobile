@@ -6,11 +6,13 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 // import SelectList from 'react-native-dropdown-select-list';
-import SelectDropdown from "react-native-select-dropdown";
+// import SelectDropdown from "react-native-select-dropdown";
+import HeaderLogged from "./headerLogged";
 
-const TeacherList = () => {
+const TeacherList = ({navigation}) => {
   const [selected, setSelected] = React.useState("");
   const listTutorNational = [
     { key: "1", value: "Foreign Tutor" },
@@ -183,37 +185,39 @@ const TeacherList = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.introLesson}>
-        <Text style={styles.heading}>Upcoming lesson</Text>
-        <View style={styles.midIntro}>
-          <Text style={styles.timeStart}>
-            Fri, 10 Mar 23 23:00 - 23:25
-            <Text style={{ color: "yellow" }}>(starts in 18:00:00)</Text>
-          </Text>
-          <View style={styles.joinRoom}>
-            <Image
-              style={styles.iconYoutube}
-              source={require("./assets/iconYoutube.png")}
-            />
-            <Text style={styles.joinRoom_Text}>Enter lesson room</Text>
+      <HeaderLogged />
+      <ScrollView style={styles.mainView}>
+        <View style={styles.introLesson}>
+          <Text style={styles.heading}>Upcoming lesson</Text>
+          <View style={styles.midIntro}>
+            <Text style={styles.timeStart}>
+              Fri, 10 Mar 23 23:00 - 23:25
+              <Text style={{ color: "yellow" }}>(starts in 18:00:00)</Text>
+            </Text>
+            <View style={styles.joinRoom}>
+              <Image
+                style={styles.iconYoutube}
+                source={require("./assets/iconYoutube.png")}
+              />
+              <Text style={styles.joinRoom_Text}>Enter lesson room</Text>
+            </View>
           </View>
+          <Text style={styles.totalTime}>
+            Total lesson time is 299 hours 10 minutes
+          </Text>
         </View>
-        <Text style={styles.totalTime}>
-          Total lesson time is 299 hours 10 minutes
-        </Text>
-      </View>
 
-      <View style={styles.middle}>
-        <Text style={styles.heading2}>Find a tutor</Text>
-        <TextInput
-          style={styles.input}
-          label="Email"
-          placeholder="Enter tutor name..."
-          // value={username}
-          // onChangeText={setUsername}
-        />
+        <View style={styles.middle}>
+          <Text style={styles.heading2}>Find a tutor</Text>
+          <TextInput
+            style={styles.input}
+            label="Email"
+            placeholder="Enter tutor name..."
+            // value={username}
+            // onChangeText={setUsername}
+          />
 
-        {/* <SelectList
+          {/* <SelectList
         style={styles.input}
         placeholder="Select tutor national"
         // data={listTutorNational}
@@ -223,12 +227,12 @@ const TeacherList = () => {
         // onChangeText={setPassword}
         // secureTextEntry={true}
       /> */}
-        {/* <SelectList
+          {/* <SelectList
         data={listTutorNational}
         setSelected={setSelected}
       /> */}
 
-        {/* <SelectDropdown
+          {/* <SelectDropdown
       style={styles.selectTutor}
 	      data={countries}
 	      onSelect={(selectedItem, index) => {
@@ -244,50 +248,65 @@ const TeacherList = () => {
 		return item
 	}}
 /> */}
-        <Text>Select available tutoring time:</Text>
-        {/* select a day  */}
-        {/* select time  */}
-        <View style={styles.keyCourseBox}>
-          {keywordText.map((i) => (
-            <Text key={i.key} style={styles.keywordCourse}>
-              {i.value}
-            </Text>
-          ))}
-        </View>
-        <Text style={styles.resetFilters}>Reset filters</Text>
-        <View style={styles.strike} />
+          <Text style={{fontWeight: 'bold'}}>Select available tutoring time:</Text>
+          {/* select a day  */}
+          {/* select time  */}
+          <View style={styles.keyCourseBox}>
+            {keywordText.map((i) => (
+              <Text key={i.key} style={styles.keywordCourse}>
+                {i.value}
+              </Text>
+            ))}
+          </View>
+          <Text style={styles.resetFilters}>Reset filters</Text>
+          <View style={styles.strike} />
 
-        <View style={styles.recommendedTutors}>
-          {tutorInfo.map((index) => (
-            <View key={index.key} style={styles.tutorBox}>
-              <View style={styles.tutorInfoBox}>
-                <View style={styles.topTutorInfoBox}></View>
-                <Text style={styles.tutorName}>{index.name}</Text>
-                <Text>{index.nationality}</Text>
-                {/* <View>{printStar(index.liked)}</View> */}
-                <View style={styles.keyCourseBox}>
-                  {index.skill.map((i) => (
-                    <Text style={styles.keywordCourseTutor}>{i}</Text>
-                  ))}
-                </View>
-                <Text>{index.description}</Text>
-                <View style={styles.book}>
-                  <Text>Book</Text>
+          <View style={styles.recommendedTutors}>
+            {tutorInfo.map((index) => (
+              <View key={index.key} style={styles.tutorBox}>
+                <View style={styles.tutorInfoBox}>
+                  <View style={styles.topTutorInfoBox}></View>
+                  <Text style={styles.tutorName}>{index.name}</Text>
+                  <Text>{index.nationality}</Text>
+                  {/* <View>{printStar(index.liked)}</View> */}
+                  <View style={styles.keyCourseBox}>
+                    {index.skill.map((i) => (
+                      <Text style={styles.keywordCourseTutor}>{i}</Text>
+                    ))}
+                  </View>
+                  <Text style={styles.description}>{index.description}</Text>
+                  <TouchableOpacity style={styles.book} onPress={()=>{navigation.navigate('tutor')}}>
+                    <Text>Book</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
+            ))}
+
+            {/* change page */}
+            <View style={styles.pageBox}>
+              <TouchableOpacity style={styles.page}></TouchableOpacity>
+              <TouchableOpacity style={styles.page}>
+                <Text>1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.page}>
+                <Text>2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.page}>
+                <Text>3</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.page}>
+                <Text>4</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.page}>
+                <Text>5</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.page}>
+                <Text>1</Text>
+              </TouchableOpacity>
             </View>
-          ))}
-          <View style={styles.pageBox}>
-            <View style={styles.page}></View>
-            <Text style={styles.page}>1</Text>
-            <Text style={styles.page}>2</Text>
-            <Text style={styles.page}>3</Text>
-            <Text style={styles.page}>4</Text>
-            <Text style={styles.page}>5</Text>
-            <View style={styles.page}></View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -298,7 +317,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 30,
+  },
+  mainView: {
+    width: "100%",
   },
   introLesson: {
     width: "100%",
@@ -323,6 +344,8 @@ const styles = StyleSheet.create({
   timeStart: {
     flex: 1,
     color: "white",
+    // paddingLeft: 15,
+    textAlign: "center",
   },
   joinRoom: {
     flex: 1,
@@ -348,6 +371,8 @@ const styles = StyleSheet.create({
   },
   middle: {
     width: "90%",
+    alignSelf: "center",
+    justifyContent: "center",
     marginVertical: 25,
   },
   heading2: {
@@ -369,16 +394,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 8,
   },
-  keyCourseBox: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
   keywordCourse: {
     backgroundColor: "lightgray",
     borderRadius: 25,
     padding: 10,
     marginHorizontal: 10,
     marginVertical: 5,
+  },
+  keyCourseBox: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 15,
+    marginBottom: 30,
   },
   keywordCourseTutor: {
     backgroundColor: "lightblue",
@@ -426,13 +453,14 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.2,
     // elevation: 10,
     width: "100%",
-    height: 500,
+    height: 550,
     marginTop: 20,
     justifyContent: "center",
+    alignItems: 'center',
   },
   tutorInfoBox: {
-    marginHorizontal: 15,
-    height: 450,
+    height: 500,
+    width: '90%',
   },
   topTutorInfoBox: {
     height: 100,
@@ -470,10 +498,10 @@ const styles = StyleSheet.create({
   pageBox: {
     // position: "absolute",
     // bottom: 0,
-    flexDirection: 'row',
-    alignSelf: 'flex-end',
+    flexDirection: "row",
+    alignSelf: "flex-end",
     marginTop: 50,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     height: 30,
     width: 270,
   },

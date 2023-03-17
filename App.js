@@ -5,23 +5,32 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './login1.js';
-import Header from './header';
-import HeaderLogged from './headerLogged';
 import TeacherList from './teacherList';
 import DetailTutor from './detailTutor.js';
+import Tutor from "./tutor";
+
+// function LoginScreen() {
+//   return (
+//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+//       <Text>Home Screen</Text>
+//     </View>
+//   );
+// }
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <Header headerText={''}/> */}
-      <HeaderLogged/>
-      <ScrollView>
-        <TeacherList/>
-        {/* <Login/> */}
-        {/* <DetailTutor/> */}
-        <StatusBar style="auto" />
-      </ScrollView>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="login"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="teacherList" component={TeacherList} />
+        <Stack.Screen name="tutor" component={Tutor} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -29,7 +38,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
