@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import HeaderLogged from "../components/headerLogged";
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Translate} from "../components/language";
 
 const Menu = ({ navigation }) => {
@@ -25,6 +25,11 @@ const Menu = ({ navigation }) => {
         user : state.user.data
     }
     })
+    const dispatch = useDispatch()
+    const logout = async () =>{
+       console.log("logout")
+       await dispatch.user.logout()
+    }
   return (
     <View style={styles.container}>
       <HeaderLogged navigation={navigation}/>
@@ -74,7 +79,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}><Translate tid={"tutor"}/></Text>
+                    <Text onPress={()=>navigation.navigate("teacherList")} style={styles.text}><Translate tid={"tutor"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -110,7 +115,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}><Translate tid={"courses"}/></Text>
+                    <Text onPress={()=>navigation.navigate("course")} style={styles.text}><Translate tid={"courses"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -139,7 +144,7 @@ const Menu = ({ navigation }) => {
             </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>logout()}>
             <View style={styles.viewMenu}>
                 <View style={styles.viewLeftItemMenu}>
                     <IconMaterial name="bookmark-plus" size={50} color="#0071F0">

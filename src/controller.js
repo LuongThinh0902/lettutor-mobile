@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import ForgotPassword from './screens/forgotPassword.js';
 import Menu from "./screens/menu.js"
 import Schedule from "./screens/schedule.js"
+import Course from "./screens/course.js"
 const Stack = createNativeStackNavigator();
 
 export default function Controller() {
@@ -29,6 +30,8 @@ export default function Controller() {
                 <Stack.Screen name="teacherList" component={TeacherList} />
                 <Stack.Screen name="tutor" component={Tutor} />
                 <Stack.Screen name="menu" component={Menu} />
+                <Stack.Screen name="course" component={Course} />
+
 
               </>
               :

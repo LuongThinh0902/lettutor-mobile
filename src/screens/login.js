@@ -19,8 +19,8 @@ import { Translate} from "../components/language";
 
 const Login = ({ navigation }) => {
 
-  const [username, setUsername] = useState("student@lettutor.com");
-  const [password, setPassword] = useState("123456");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [msg,setMsg] = useState("");
   const [loading,setLoading] = useState(false);
 

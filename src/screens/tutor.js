@@ -19,8 +19,10 @@ import Util from "../utils";
 import User from '../api/user'
 import mTutor from '../api/tutor'
 import { useSelector } from "react-redux";
+import { Translate} from "../components/language";
 
 const Tutor = ({ route, navigation }) => {
+  const dictionary = useSelector(state => state.language.dictionary)
   const { tutorId, tutorProps } = route.params
   const { user } = useSelector(state=>{
     return {
@@ -177,6 +179,8 @@ const Tutor = ({ route, navigation }) => {
 
   }
   const [note, setNote] = useState("")
+  let txtCancel = dictionary["cancel"] || "Cancel"
+  let txtBook = dictionary["book"] || "Book"
 
   return (
     <View style={styles.container}>
@@ -260,7 +264,7 @@ const Tutor = ({ route, navigation }) => {
                                   color={!liked?"#0071F0":"#F04848"}
                   ></Icon>
                 </TouchableOpacity>
-                <Text style={{color:!liked?"#0071F0":"#F04848"}}>Favorite</Text>
+                <Text style={{color:!liked?"#0071F0":"#F04848"}}><Translate tid={"favorite"}/></Text>
             </View>
             <View style={{alignItems:"center"}}>
                 <TouchableOpacity onPress={()=>{}}>
@@ -268,14 +272,14 @@ const Tutor = ({ route, navigation }) => {
                                       color="#0071F0"
                   ></Icon>
                 </TouchableOpacity>
-                <Text style={{color:"#0071F0"}}>Report</Text>
+                <Text style={{color:"#0071F0"}}><Translate tid={"report"}/></Text>
             </View>
             <View style={{alignItems:"center"}}>
                 <TouchableOpacity onPress={()=>{setModalVisible(true)}}>
                       <Icon size={30} name="star-o" color="#0071F0"
                     ></Icon>
                 </TouchableOpacity>
-                <Text style={{color:"#0071F0"}}>Reviews</Text>
+                <Text style={{color:"#0071F0"}}><Translate tid={"reviews"}/></Text>
             </View>
           </View>
           <View style={styles.video}>
@@ -286,12 +290,12 @@ const Tutor = ({ route, navigation }) => {
               />
           </View>
         </View>
-        <Text style={styles.heading}>Languages</Text>
+        <Text style={styles.heading}><Translate tid={"languages"} /></Text>
         <View style={styles.list}>
           <Text style={styles.languages}>{tutorProps.language}</Text>
         </View>
 
-        <Text style={styles.heading}>Specialties</Text>
+        <Text style={styles.heading}><Translate tid={"specialties"}/></Text>
         <View style={styles.list}>
           {tutorProps.specialties.split(",").map((item)=>{
             let value = keywordText.find(i=>i.code==item).value
@@ -302,13 +306,13 @@ const Tutor = ({ route, navigation }) => {
           }
         </View>
 
-        <Text style={styles.heading}>Interests</Text>
+        <Text style={styles.heading}><Translate tid={"interests"}/></Text>
         <Text style={styles.content}>{tutorProps.interests}</Text>
 
-        <Text style={styles.heading}>Teaching experience</Text>
+        <Text style={styles.heading}><Translate tid={"teachingExperience"}/></Text>
         <Text style={styles.content}>{tutorProps.experience}</Text>
 
-        <Text style={styles.heading}>Schedules</Text>
+        <Text style={styles.heading}><Translate tid={"schedules"}/></Text>
 
         <View style={{width:"100%",flexDirection:'row',marginTop:10}}>
           {/* {
@@ -367,7 +371,7 @@ const Tutor = ({ route, navigation }) => {
                           onPress={()=>handleBook(item.id)}
                           style={{...styles.bookSchedule,
                           backgroundColor:item.isBooked?"transparent":"#1890ff",
-                          color:item.isBooked?"green":"white"}}>{item.isBooked?"Booked":"Book"}</Text>
+                          color:item.isBooked?"green":"white"}}>{item.isBooked?dictionary["booked"]:dictionary["book"]}</Text>
                     </View>
                   </View>
                 )
@@ -379,14 +383,14 @@ const Tutor = ({ route, navigation }) => {
               transparent={true}
               visible={modalBookVisible}
               onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
+                // Alert.alert('Modal has been closed.');
                 setModalBookVisible(!modalBookVisible);
               }}>
               <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <View style={{flexDirection:"row",marginBottom:10}}>
                   <View style={{flex:4,alignItems:"flex-start",justifyContent:"center"}}>
-                      <Text style={{...styles.heading,fontWeight:"bold"}}>Booking Details</Text>
+                      <Text style={{...styles.heading,fontWeight:"bold"}}><Translate tid={"bookingDetails"}/></Text>
                   </View>
                   <View style={{flex:1,alignItems:"flex-end",justifyContent:"center"}}>
                     <Pressable
@@ -398,7 +402,7 @@ const Tutor = ({ route, navigation }) => {
                 </View>
                 <View style={styles.strike} />
                   <View style={{width:"100%",borderColor:"#f9f9f9",borderWidth:1,marginTop:10}}>
-                    <Text style={{fontSize:17,fontWeight:'bold',backgroundColor:"#fafafa"}}>Booking Time</Text>
+                    <Text style={{fontSize:17,fontWeight:'bold',backgroundColor:"#fafafa"}}><Translate tid={"bookingTime"}/></Text>
                     <Text style={{marginTop:5,
                       backgroundColor:"rgb(238, 234, 255)",
                       justifyContent:"center",
@@ -413,18 +417,18 @@ const Tutor = ({ route, navigation }) => {
                   </View>
                   <View style={{borderColor:"#f9f9f9",borderWidth:2,backgroundColor:"#fafafa",marginTop:10}}>
                     <View style={{flexDirection:'row', width:"100%",marginBottom:10}}>  
-                        <Text style={{flex:2,marginRight:20,fontSize:17,fontWeight:'bold',paddingLeft:5}}>Balance</Text>
-                        <Text style={{flex:3,color:"rgb(119, 102, 199)",alignSelf:"flex-end"}}>You have {user?.walletInfo?.amount/100000} lessons left</Text>
+                        <Text style={{flex:2,marginRight:20,fontSize:17,fontWeight:'bold',paddingLeft:5}}><Translate tid={"balance"}/></Text>
+                        <Text style={{flex:3,color:"rgb(119, 102, 199)",alignSelf:"flex-end"}}>{dictionary["youHave"]} {user?.walletInfo?.amount/100000} {dictionary["lessonsLeft"]}</Text>
                     </View>
                     <View style={{flexDirection:'row', width:"100%"}}>
-                        <Text style={{flex:2,marginRight:20,fontSize:17,fontWeight:'bold',paddingLeft:5}}>Price</Text>
-                        <Text style={{flex:3,color:"rgb(119, 102, 199)",alignSelf:"flex-end"}}> 1 lesson</Text>
+                        <Text style={{flex:2,marginRight:20,fontSize:17,fontWeight:'bold',paddingLeft:5}}><Translate tid={"price"}/></Text>
+                        <Text style={{flex:3,color:"rgb(119, 102, 199)",alignSelf:"flex-end"}}> 1 {dictionary["lesson"]}</Text>
                     </View>
                   </View>
                   <View style={{...styles.strikeNote,marginVertical:5}} />
               
                   <View style={{width:"100%",marginTop:10,backgroundColor:"#fafafa",padding:10,borderWidth:1,borderColor:"#f9f9f9"}}>
-                      <Text style={{fontSize:17,fontWeight:'bold',paddingBottom:10}}>Notes</Text>
+                      <Text style={{fontSize:17,fontWeight:'bold',paddingBottom:10}}><Translate tid={"notes"}/></Text>
                       <View style={{borderWidth:1,borderColor:"black",opacity:0.3}}>
                           <TextInput 
                             textAlignVertical="top"
@@ -440,10 +444,10 @@ const Tutor = ({ route, navigation }) => {
                   </View>
                   <View style={{flexDirection:'row',justifyContent:"flex-end",alignItems:"center",width:"100%",padding:5}}> 
                     <View style={{marginRight:20,borderRadius:10}} >
-                        <Button onPress={()=>setModalBookVisible(false)} title="Cancel"></Button>
+                        <Button onPress={()=>setModalBookVisible(false)} title={txtCancel}></Button>
                     </View>
                     <View style={{borderRadius:10}}>
-                        <Button  onPress={()=>handleBookSchedule(currentBookedSchedule)} title="Book"></Button>
+                        <Button  onPress={()=>handleBookSchedule(currentBookedSchedule)} title={txtBook}></Button>
                     </View>
                   </View>
               </View>
