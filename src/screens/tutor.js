@@ -12,7 +12,7 @@ import {
   Pressable,
   Alert
 } from "react-native";
-import Header from "../components/header";
+import Header from "../components/headerLogged";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Video from 'react-native-video';
 import Util from "../utils";
@@ -184,7 +184,7 @@ const Tutor = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header  navigation={navigation}/>
       <Modal
         animationType="slide"
         transparent={true}
