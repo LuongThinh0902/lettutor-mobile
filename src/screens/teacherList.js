@@ -25,11 +25,13 @@ import ChooseTime from '../components/chooseTime'
 import User from '../api/user'
 import Tutor from "../api/tutor";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import { Translate} from "../components/language";
 
 const TeacherList = ({ navigation }) => {
-
-  const listTutorNational = ["Foreign Tutor", "Vietnamese Tutor", "Native English Tutor"];
-
+  const dictionary = useSelector(state => state.language.dictionary)
+  let userLanguage = useSelector(state => state.language.userLanguage)
+ 
+  const listTutorNational = [dictionary["foreignTutor"]|| "Foreign Tutor", dictionary["vietNamTutor"]||"Vietnamese Tutor", dictionary["nativeTutor"]||"Native English Tutor"];
   const [selected, setSelected] = React.useState("");
   const [tutors, setTutors] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -38,6 +40,21 @@ const TeacherList = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSpecialty, setCurrentSpecialty] = useState("All");
   const [tutorNational, setTutorNational] = useState(listTutorNational[0]);
+  useEffect(()=>{
+    console.log(listTutorNational)
+    let item = listTutorNational.findIndex(item=>item == tutorNational);
+    console.log(listTutorNational[item])
+    if(item==-1)
+    {
+      setTutorNational(listTutorNational[0])
+    }
+    else
+    {
+      setTutorNational(listTutorNational[item])
+      
+    }
+
+  },[userLanguage])
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
 
@@ -70,7 +87,7 @@ const TeacherList = ({ navigation }) => {
   }, []);
 
 
-  const keywordText = [
+  let keywordText = [
     { key: 1, code:"All", value: "All" },
     { key: 2, code:"english-for-kids", value: "English for kids" },
     { key: 3, code:"business-english", value: "English for Business" },
@@ -284,36 +301,37 @@ const TeacherList = ({ navigation }) => {
       }
     })
   }
-
+  let searchNational = dictionary["selectTutorNational"] || "Select tutor national"
+  let searchName= dictionary["enterNameTutor"] || "Enter tutor name..."
   return (
     <View style={styles.container}>
       <HeaderLogged navigation={navigation}/>
       <ScrollView style={styles.mainView} nestedScrollEnabled={true}>
         <View style={styles.introLesson}>
-          <Text style={styles.heading}>Upcoming lesson</Text>
+          <Text style={styles.heading}><Translate tid={"comingLesson"} /></Text>
           <View style={styles.midIntro}>
             <Text style={styles.timeStart}>
               Fri, 10 Mar 23 23:00 - 23:25
-              <Text style={{ color: "yellow" }}>(starts in 18:00:00)</Text>
+              <Text style={{ color: "yellow" }}> <Translate tid={"startIn"} /> 18:00:00</Text>
             </Text>
             <View style={styles.joinRoom}>
               <Image
                 style={styles.iconYoutube}
                 source={require("../../assets/iconYoutube.png")}
               />
-              <Text style={styles.joinRoom_Text}>Enter lesson room</Text>
+              <Text style={styles.joinRoom_Text}><Translate tid={"enterLessonRoom"} /></Text>
             </View>
           </View>
           <Text style={styles.totalTime}>
-            Total lesson time is 299 hours 10 minutes
+            <Translate tid={"totalTimeLesson"}/> 299 <Translate tid={"hours"}/> 10 <Translate tid={"minutes"}/>
           </Text>
         </View>
         <View style={styles.middle}>
-          <Text style={styles.heading2}>Find a tutor</Text>
+          <Text style={styles.heading2}><Translate tid={"findATutor"}/></Text>
           <TextInput
             style={styles.input}
             label="Email"
-            placeholder="Enter tutor name..."
+            placeholder={searchName}
             value={search}
             onChangeText={handlesearch}
           />
@@ -325,7 +343,7 @@ const TeacherList = ({ navigation }) => {
               console.log(selectedItem, index);
               filterNational(selectedItem)
             }}
-            defaultButtonText={"Select tutor national"}
+            defaultButtonText={searchNational}
             buttonStyle={styles.selectInput}
             buttonTextStyle={styles.placeholderText}
             dropdownIconPosition={"right"}
@@ -335,7 +353,7 @@ const TeacherList = ({ navigation }) => {
           {/* <Picker></Picker> */}
 
           <Text style={{ fontWeight: "bold" }}>
-            Select available tutoring time:
+            <Translate tid={"selectTime"}/>
           </Text>
 
           {/* select a day  */}
@@ -353,12 +371,12 @@ const TeacherList = ({ navigation }) => {
             ))}
           </View>
           <TouchableOpacity onPress={()=>reset()}>
-              <Text style={styles.resetFilters}>Reset filters</Text>
+              <Text style={styles.resetFilters}><Translate tid={"resetFilters"}/></Text>
           </TouchableOpacity>
           <View style={styles.strike} />
 
           <View style={styles.recommendedTutors}>
-        <Text style={{fontSize:24,fontWeight:'bold',marginBottom:5}}>Recommended Tutors</Text>
+        <Text style={{fontSize:24,fontWeight:'bold',marginBottom:5}}><Translate tid={"recommendedTutor"}/></Text>
           {
             sortData(tutors).map((item,key) => {
               // console.log(item.avatar)
@@ -402,7 +420,7 @@ const TeacherList = ({ navigation }) => {
                               });
                             }}
                           >
-                            <Text>Book</Text>
+                            <Text><Translate tid={"book"}/></Text>
                         </TouchableOpacity>
                       </View>
                     </View>

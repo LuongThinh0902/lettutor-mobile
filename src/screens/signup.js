@@ -14,6 +14,7 @@ import Header from "../components/header";
 import { useEffect } from "react";
 import User from "../api/user.js";
 import { useDispatch, useSelector } from "react-redux";
+import { Translate} from "../components/language";
 
 const SignUp = ({ navigation }) => {
 
@@ -31,12 +32,12 @@ const SignUp = ({ navigation }) => {
     let reg= "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
     if( !email.match(reg))
     {
-      setMsg("Địa chỉ email không hợp lệ")
+      setMsg(<Translate tid={"invalidAccount"} />)
       setTimeout(() => setMsg(""), 3000);
     }
     else if( password == "")
     {
-      setMsg("Mật khẩu không hợp lệ")
+      setMsg(<Translate tid={"invalidPW"} />)
       setTimeout(() => setMsg(""), 3000);
     }
     else
@@ -78,12 +79,12 @@ const SignUp = ({ navigation }) => {
           source={require("../../assets/banner.png")}
         ></Image>
 
-        <Text style={styles.heading}>Start learning with LetTutor</Text>
+        <Text style={styles.heading}><Translate tid={"welcomeSignup"}/></Text>
         <Text style={styles.title}>
-        Become fluent faster through one on one video chat lessons tailored to your goals.
+        <Translate tid={"descriptionLogin"}/>
         </Text>
 
-        <Text style={styles.labelInput}>EMAIL</Text>
+        <Text style={styles.labelInput}><Translate tid={"email"}/></Text>
         <TextInput
           style={styles.input}
           label="Email"
@@ -92,7 +93,7 @@ const SignUp = ({ navigation }) => {
           onChangeText={setEmail}
         />
 
-        <Text style={styles.labelInput}>PASSWORD</Text>
+        <Text style={styles.labelInput}><Translate tid={"password"}/></Text>
         <TextInput
           style={styles.input}
           placeholder=""
@@ -110,10 +111,10 @@ const SignUp = ({ navigation }) => {
           style={styles.button}
           onPress={signUp}
         >
-          <Text style={styles.buttonText}>SIGN UP</Text>
+          <Text style={styles.buttonText}><Translate tid={"SIGNUP"}/></Text>
         </TouchableOpacity>
 
-        <Text style={styles.text}>Or continue with</Text>
+        <Text style={styles.text}><Translate tid={"orContinueWith"}/></Text>
 
         <View style={styles.boxIcon}>
           <Image
@@ -130,8 +131,8 @@ const SignUp = ({ navigation }) => {
           ></Image>
         </View>
         <View style={{flexDirection:'row',justifyContent:"center"}}>
-            <Text style={styles.text}>Already have an account? </Text>
-            <TouchableOpacity onPress={()=>navigation.navigate("login")} ><Text style={{color:"blue"}}>Log in</Text></TouchableOpacity>
+            <Text style={styles.text}><Translate tid={"youHaveAnAccount"} /></Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("login")} ><Text style={{color:"blue"}}><Translate tid={"login"} /></Text></TouchableOpacity>
         </View>
       </ScrollView>
       }

@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import { Text, View, Image, StyleSheet,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux'
 
 const Header = (props) => {
   const { navigation } = props
-  console.log("navigation",navigation)
-    // const [language, setLanguage] = React.useState({
-    // value: '',
-    // list: [
-    //     { _id: 1, name: 'English' },
-    //     { _id: 2, name: 'Vietnamese' },
-    //     ],
-    // selectedList: [],
-    // error: '',
-    // });
-  // const chooseLanguage = {}
-  const showListLanguage = () => {
+  let userLanguage = useSelector(state => state.language.userLanguage)
+  let userLanguageChange= useDispatch().language.userLanguageChange
+  const toggleLanguage = () => {
+    if(userLanguage=="en")
+    {
+      userLanguageChange("vi")
+    }
+    else
+    {
+      userLanguageChange("en")
+    }
   }
-
   const navigate = () =>{
     console.log("navigation",navigation.getState())
     if(navigation.getState().routes[navigation.getState().routes.length-1].name !="menu")
@@ -38,11 +37,13 @@ const Header = (props) => {
           source={require('../../assets/logoLet.png')}>
         </Image>
         <View style={styles.rightHeader}>            
-            <Image
+            <TouchableOpacity 
+                onPress={()=>toggleLanguage()}>  
+                <Image
                 style={styles.iconLanguage}
-                onClick = {showListLanguage}      
-                source={require('../../assets/usa.png')}>
-            </Image>  
+                source={userLanguage=="en"?require('../../assets/usa.png'):require('../../assets/vn.png')}>
+                </Image>      
+            </TouchableOpacity>
 
             <View style={styles.menu}>
               <TouchableOpacity 
@@ -54,8 +55,6 @@ const Header = (props) => {
                 </Icon>  
               </TouchableOpacity>
             </View>
-            
-            
         </View>
     </View>
   );

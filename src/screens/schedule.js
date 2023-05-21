@@ -12,15 +12,18 @@ import {
   Pressable,
   Alert
 } from "react-native";
-import Header from "../components/header";
+import Header from "../components/headerLogged";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Video from 'react-native-video';
 import Util from "../utils";
 import User from '../api/user'
 import mTutor from '../api/tutor'
 import { useSelector } from "react-redux";
+import { Translate} from "../components/language";
 
 const Schedule = ({ route, navigation }) => {
+  const dictionary = useSelector(state => state.language.dictionary)
+
   const { user } = useSelector(state=>{
     return {
       user : state.user.data
@@ -39,26 +42,26 @@ const Schedule = ({ route, navigation }) => {
   const handleCancelLession=() =>{
     console.log("handleCancelLession")
   }
-
+  let txtGotoMeeting = dictionary["goToMeeting"] || "Go to meeting"
   console.log("user",user)
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation}/>
       <ScrollView style={styles.mainView}>
         <Image style={{height:64,width:64}} source={require('../../assets/iconSchedule.png')}></Image>
-        <Text style={styles.heading}>Schedules</Text>
-        <Text style={styles.content}>Here is a list of the sessions you have booked</Text>
-        <Text style={styles.content}>You can track when the meeting starts, join the meeting with one click or can cancel the meeting before 2 hours</Text>
+        <Text style={styles.heading}><Translate tid={"schedules"}/></Text>
+        <Text style={styles.content}><Translate tid={"noteSchedule1"}/></Text>
+        <Text style={styles.content}><Translate tid={"noteSchedule2"}/></Text>
         <View style={{width:"100%"}}>
-            <Text style={styles.heading}>Lastest book</Text>
+            <Text style={styles.heading}><Translate tid={"latestBook"}/></Text>
             <View style={{flexDirection:'row',flex:1}}>
-                <Text style={styles.content}>Name</Text>
+                <Text style={styles.content}><Translate tid={"nameBook"}/></Text>
                 <Text style={{color:"#1890ff"}}> _Everybody 5 - Unit 4 - Lesson 3.pdf</Text>
-                <Text> Page</Text>
+                <Text> <Translate tid={"page"}/></Text>
                 <Text> 1 </Text>
             </View>
             <View style={{flexDirection:'row',flex:1}}>
-                <Text style={styles.content}>Description</Text>
+                <Text style={styles.content}><Translate tid={"description"}/></Text>
             </View>
         </View>
         <View style={{height:1,backgroundColor:"#f9f9f9",width:"100%",marginVertical:10}}></View>
@@ -67,7 +70,7 @@ const Schedule = ({ route, navigation }) => {
                 Thu, 04 May 2023
             </Text>
             <Text>
-                1 lesson
+                1 <Translate tid={"lesson"}/>
             </Text>
             <View style={{backgroundColor:"white",padding:10,width:"100%",marginBottom:15,marginTop:15}}>
                 <View style={{flexDirection:"row",width:"100%"}}>
@@ -77,7 +80,7 @@ const Schedule = ({ route, navigation }) => {
                     <View style={{flex:4, alignContent:"flex-start"}}>
                         <Text style={{padding:2}}>Keegan</Text>
                         <Text style={{padding:2}}>Aruban</Text>
-                        <Text style={{padding:2, color:"blue"}}>Direct Message</Text>
+                        <Text style={{padding:2, color:"blue"}}><Translate tid={"directMessage"}/></Text>
 
                     </View>
                 </View>
@@ -96,7 +99,7 @@ const Schedule = ({ route, navigation }) => {
                         <View style={{flex:2, alignContent:"flex-start",flexDirection:"row",padding:2,borderColor:"red",borderWidth:1}}>
                             <Icon name="close" color="red" size={20} style={{padding:3}}>
                             </Icon>
-                            <Text style={{padding:5,color:"red"}}>Cancel</Text>
+                            <Text style={{padding:5,color:"red"}}><Translate tid={"cancel"}/></Text>
                         </View>
                         </TouchableOpacity>
                     </View>
@@ -106,25 +109,24 @@ const Schedule = ({ route, navigation }) => {
                         <View style={{flex:2,flexDirection:"row",padding:10,marginBottom:10,backgroundColor:"#f9f9f9"}}>
                             <View style={{flex:2}}>
                                 <Text>
-                                    Request for lesson
+                                <Translate tid={"requestForLesson"}/>
                                 </Text>
                                 </View>
                             <View style={{flex:2, justifyContent:"flex-end"}}>
                                 <TouchableOpacity onPress={()=>handleEditRequest()}>
-                                    <Text style={{padding:2,color:"rgb(0, 113, 240)"}}>Edit Request</Text>
+                                    <Text style={{padding:2,color:"rgb(0, 113, 240)"}}><Translate tid={"editRequest"}/></Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{flex:2, alignContent:"flex-start"}}>
-                            <Text style={{padding:5}}>Currently there are no requests for this class. 
-                            Please write down any requests for the teacher.</Text>
+                            <Text style={{padding:5}}><Translate tid={"noteLesson"}/></Text>
                         </View>
                     </View>
 
                 </View>
             </View>
             <View style={{width:"100%",flexDirection:"row",justifyContent:"flex-end"}}>
-                <Button onPress={()=>console.log("Go to meeting")} title="Go to meeting"></Button>
+                <Button onPress={()=>console.log("Go to meeting")} title={txtGotoMeeting}></Button>
             </View>
 
         </View>

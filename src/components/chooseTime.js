@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
+import { Translate} from "../components/language";
+import { useSelector } from 'react-redux';
 
 const ChooseTime = (props) => {
     
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
+    const dictionary = useSelector(state => state.language.dictionary)
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   
@@ -22,19 +25,20 @@ const ChooseTime = (props) => {
     const handleCancel= () => {
       setDatePickerVisibility(false);
     };
-  
+    let txtStartTime = dictionary["startTime"]|| "Start time";
+    let txtEndTime = dictionary["endTime"]||"End time";
     return (
       <View style={styles.container}>
         <View style={styles.inputGroup}>
           <TextInput
-            placeholder="Start time"
+            placeholder={txtStartTime}
             value={startTime}
             style={styles.input}
             onChange={setStartTime}
           />
           <Text style={{marginRight:10}}>{"-->"}</Text>
           <TextInput
-            placeholder="End time"
+            placeholder={txtEndTime}
             value={endTime}
             style={styles.input}
             onChange={setEndTime}

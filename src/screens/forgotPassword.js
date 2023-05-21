@@ -11,6 +11,7 @@ import Header from "../components/header";
 import User from "../api/user.js";
 import GestureRecognizer from 'react-native-swipe-gestures';
 import Popup from "../components/popup";
+import { Translate} from "../components/language";
 
 const ForgotPassword = ({ navigation }) => {
 
@@ -27,7 +28,7 @@ const ForgotPassword = ({ navigation }) => {
     let reg= "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
     if( !email.match(reg))
     {
-      setMsg("Địa chỉ email không hợp lệ")
+      setMsg(<Translate tid={"invalidAccount"} />)
       setTimeout(() => setMsg(""), 3000);
     }
     else
@@ -70,12 +71,12 @@ const ForgotPassword = ({ navigation }) => {
           <View style={styles.mainView}>
             <View style={{flex:1}}></View>
             <View style={{flex:4}}>
-              <Text style={styles.heading}>Reset Password</Text>
+              <Text style={styles.heading}><Translate tid={"resetPW"}/></Text>
               <Text style={styles.title}>
-              Please enter your email address to search for your account.
+              <Translate tid={"noteForgotPW"} />
               </Text>
 
-              <Text style={styles.labelInput}>EMAIL</Text>
+              <Text style={styles.labelInput}><Translate tid={"email"}/></Text>
               <TextInput
                 style={styles.input}
                 label="email"
@@ -88,7 +89,7 @@ const ForgotPassword = ({ navigation }) => {
                   style={styles.button}
                   onPress={handleClick}
                 >
-                  <Text style={styles.buttonText}>Send reset link</Text>
+                  <Text style={styles.buttonText}><Translate tid={"sendResetLink"}/></Text>
                 </TouchableOpacity>
               </View>
               {msg?

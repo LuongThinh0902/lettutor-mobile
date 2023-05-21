@@ -14,6 +14,8 @@ import Header from "../components/header";
 import { useEffect } from "react";
 import User from "../api/user.js";
 import { useDispatch, useSelector } from "react-redux";
+import { Translate} from "../components/language";
+
 
 const Login = ({ navigation }) => {
 
@@ -30,12 +32,12 @@ const Login = ({ navigation }) => {
 
     if( username== "")
     {
-      setMsg("Tài khoản không hợp lệ")
+      setMsg(<Translate tid={"invalidAccount"} />)
       setTimeout(() => setMsg(""), 3000);
     }
     else if( password == "")
     {
-      setMsg("Mật khẩu không hợp lệ")
+      setMsg(<Translate tid={"invalidPW"} />)
       setTimeout(() => setMsg(""), 3000);
     }
     else
@@ -72,13 +74,12 @@ const Login = ({ navigation }) => {
           source={require("../../assets/banner.png")}
         ></Image>
 
-        <Text style={styles.heading}>Say hello to your English tutors</Text>
+        <Text style={styles.heading}><Translate tid={"welcomeLogin"}/></Text>
         <Text style={styles.title}>
-          Become fluent faster through one on one video chat lessons tailored to
-          your goals.
+          <Translate tid={"descriptionLogin"}/>
         </Text>
 
-        <Text style={styles.labelInput}>EMAIL</Text>
+        <Text style={styles.labelInput}><Translate tid={"email"}/></Text>
         <TextInput
           style={styles.input}
           label="Email"
@@ -87,7 +88,7 @@ const Login = ({ navigation }) => {
           onChangeText={setUsername}
         />
 
-        <Text style={styles.labelInput}>PASSWORD</Text>
+        <Text style={styles.labelInput}><Translate tid={"password"}/></Text>
         <TextInput
           style={styles.input}
           placeholder=""
@@ -104,17 +105,17 @@ const Login = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate("forgotPassword")}
         >
-            <Text style={styles.forgotPass}>Forgot Password?</Text>
+            <Text style={styles.forgotPass}><Translate tid={"forgotpw"}/></Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
           onPress={login}
         >
-            <Text style={styles.buttonText}>Log In</Text>
+            <Text style={styles.buttonText}><Translate tid={"login"} /></Text>
         </TouchableOpacity>
 
-        <Text style={styles.text}>Or continue with</Text>
+        <Text style={styles.text}><Translate tid={"orContinueWith"}/></Text>
 
         <View style={styles.boxIcon}>
           <Image
@@ -131,8 +132,8 @@ const Login = ({ navigation }) => {
           ></Image>
         </View>
         <View style={{flexDirection:'row',justifyContent:"center"}}>
-            <Text style={styles.text}>Not a member yet? </Text>
-            <TouchableOpacity onPress={()=>navigation.navigate("signUp")} ><Text style={{color:"blue"}}>Sign up</Text></TouchableOpacity>
+            <Text style={styles.text}><Translate tid={"notAMember"} /></Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("signUp")} ><Text style={{color:"blue"}}><Translate tid={"signup"}/></Text></TouchableOpacity>
         </View>
       </ScrollView>
       }

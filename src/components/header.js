@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, Dimensions } from 'react-native';
-
+import { Text, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux'
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const Header = () => {
 
-  // const chooseLanguage = {}
-  const showListLanguage = () => {
+  let userLanguage = useSelector(state => state.language.userLanguage)
+  let userLanguageChange= useDispatch().language.userLanguageChange
+  const toggleLanguage = () => {
+    if(userLanguage=="en")
+    {
+      userLanguageChange("vi")
+    }
+    else
+    {
+      userLanguageChange("en")
+    }
   }
     return (
     <View style = {styles.bgHeader}>    
@@ -15,11 +24,14 @@ const Header = () => {
           style={styles.logo}
           source={require('../../assets/logoLet.png')}>
         </Image>
-        <Image
-          style={styles.iconLanguage}
-          onClick = {showListLanguage}      
-          source={require('../../assets/usa.png')}>
-        </Image>  
+        <TouchableOpacity 
+            onPress={()=>toggleLanguage()}>  
+            <Image
+            style={styles.iconLanguage}
+            source={userLanguage=="en"?require('../../assets/usa.png'):require('../../assets/vn.png')}>
+            </Image>      
+        </TouchableOpacity>
+       
     </View>
   );
 };

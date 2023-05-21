@@ -16,8 +16,10 @@ import {
 import HeaderLogged from "../components/headerLogged";
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useSelector } from "react-redux";
+import { Translate} from "../components/language";
 
 const Menu = ({ navigation }) => {
+    
     const { user } = useSelector(state=>{
     return {
         user : state.user.data
@@ -48,7 +50,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>Buy Lessons</Text>
+                    <Text style={styles.text}><Translate tid={"buyLessons"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -60,7 +62,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>Change password</Text>
+                    <Text style={styles.text}><Translate tid={"changePW"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -72,7 +74,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>Tutor</Text>
+                    <Text style={styles.text}><Translate tid={"tutor"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -84,7 +86,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text onPress={()=>navigation.navigate("schedule")} style={styles.text}>Schedule</Text>
+                    <Text onPress={()=>navigation.navigate("schedule")} style={styles.text}><Translate tid={"schedule"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -96,7 +98,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>History</Text>
+                    <Text style={styles.text}><Translate tid={"history"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -108,7 +110,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>Courses</Text>
+                    <Text style={styles.text}><Translate tid={"courses"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -120,7 +122,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>My courses</Text>
+                    <Text style={styles.text}><Translate tid={"myCourses"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -132,7 +134,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>Become a tutor</Text>
+                    <Text style={styles.text}><Translate tid={"becomeATutor"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -144,7 +146,7 @@ const Menu = ({ navigation }) => {
                     </IconMaterial>
                 </View>
                 <View style={styles.viewRightItemMenuIcon}>
-                    <Text style={styles.text}>Log out</Text>
+                    <Text style={styles.text}><Translate tid={"logout"}/></Text>
                 </View>
             </View>
         </TouchableOpacity>

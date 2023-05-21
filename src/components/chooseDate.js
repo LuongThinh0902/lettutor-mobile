@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Translate} from "../components/language";
 
 const ChooseDate = (props) => {
     const { date ,setDate} = props
     const [selectedDate, setSelectedDate] = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const dictionary = useSelector(state => state.language.dictionary)
   
     const handleDateChange = (event, date) => {
       if (Platform.OS === 'android') {
@@ -27,12 +30,12 @@ const ChooseDate = (props) => {
       setSelectedDate("")
       setDatePickerVisibility(false);
     };
-  
+    let textChooseDay = dictionary["selectADay"] || "Select a day"
     return (
       <View style={styles.container}>
         <View style={styles.inputGroup}>
           <TextInput
-            placeholder="Select a day"
+            placeholder={textChooseDay}
             value={selectedDate ? selectedDate.toDateString() : ''}
             style={styles.input}
             editable={false}
